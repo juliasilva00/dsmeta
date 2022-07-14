@@ -1,13 +1,21 @@
-import NotificationButton from "../NotificationButton"
-
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useState } from "react";
 
 
-import './style.css'
+import NotificationButton from "../NotificationButton";
+import './style.css';
 
 function SalesCard() {
+
+
+    const min = new Date(new Date().setDate(new Date().getDate() - 365));
+    const max = new Date();
+
+    const [minDate, setMinDate] = useState(min);
+    const [maxDate, setMaxDate] = useState(max);
+
     return (
         <>
 
@@ -17,8 +25,11 @@ function SalesCard() {
                 <div>
                     <div className="dsmeta-form-control-container">
                         <DatePicker
-                            selected={new Date()}
-                            onChange={(date: Date) => { }}
+                        //o resultado visual de um componente é consequencia do dado que está no componente
+                        //se quiser mudar o visual precisamos mudar o dado, mudando o dado o motor do react vai identificar isso e alterar o visual com o novo dado
+                        //REACT HOOK - A forma correta de manter o estado de um componente é usando o reack hook (gancho/atrelado)
+                            selected={minDate}
+                            onChange={(date: Date) => {setMinDate(date) }}
                             className="dsmeta-form-control"
                             dateFormat="dd/MM/yyyy"
                         />
@@ -28,8 +39,8 @@ function SalesCard() {
                 <div>
                     <div className="dsmeta-form-control-container">
                         <DatePicker
-                            selected={new Date()}
-                            onChange={(date: Date) => { }}
+                            selected={maxDate}
+                            onChange={(date: Date) => { setMaxDate(date)}}
                             className="dsmeta-form-control"
                             dateFormat="dd/MM/yyyy"
                         />
@@ -119,4 +130,4 @@ function SalesCard() {
     )
 }
 
-export default SalesCard
+export default SalesCard;
